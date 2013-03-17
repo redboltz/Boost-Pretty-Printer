@@ -186,7 +186,7 @@ class BoostScopedPtr:
         self.value = value
 
     def to_string(self):
-        return '(%s) %s' % (self.typename, self.value['px'])
+        return '(%s) address = %s value = %s' % (self.typename, self.value['px'], self.value['px'].dereference())
 
 @register_pretty_printer
 class BoostSharedPtr:
@@ -207,9 +207,9 @@ class BoostSharedPtr:
         countobj = self.value['pn']['pi_'].dereference()
         refcount = countobj['use_count_']
         weakcount = countobj['weak_count_']
-        return '(%s) (count %d, weak count %d) %s' % (self.typename,
+        return '(%s) (count %d, weak count %d) address = %s value = %s' % (self.typename,
                                                       refcount, weakcount,
-                                                      self.value['px'])
+                                                      self.value['px'], self.value['px'].dereference())
 
 @register_pretty_printer
 class BoostArray:
